@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 import sys
-class config():
+class Config():
     def __init__(self):
         global args
         self._config={}
@@ -12,7 +12,7 @@ class config():
         return self._config.get(param)
     def getRemoveconfig(self):
         return self._config["YangLao"]+self._config["YiLiao"]+self._config["ShiYe"]+self._config["GongShang"]+self._config["ShengYu"]+self._config["GongJiJin"]
-class userData():
+class UserData():
     def __init__(self):
         global args
         self._data={}
@@ -28,9 +28,18 @@ class userData():
             if value<0:
                 raise ValueError()
             else:
+                shebao=0
                 a.append(value)
-                a.append(value*config.getRemoveconfig())
-                value=value-value*config.getRemoveconfig()
+                if value<int(config.get_config("JiShuL")):
+                    shebao=int(config.get_config("JiShuL"))*config.getRemoveconfig()
+                    a.append(shebao)
+                elif value>int(config.get_config("JiShuH")):
+                    shebao=int(config.get_config("JiShuH"))*config.getRemoveconfig()
+                    a.append(shebao)
+                else:
+                    shebao=value*config.getRemoveconfig()
+                    a.append(shebao)
+                value=value-shebao
                 topay=value
                 if topay<3500:
                     a.append(0)
@@ -82,26 +91,31 @@ class userData():
                        outstr+="{:.2f}".format(num)+","
                 outstr=outstr[0:-1]
                 file.write(outstr+"\n")
-class args():
+class Args():
     def __init__(self):
         self.param={}		
-        self.args=sys.argv[1:]
-        index=self.args.index('-c')
-        self.param['-c']=self.args[index+1]
-        index=self.args.index('-d')
-        self.param['-d']=self.args[index+1]
-        index=self.args.index('-o')
-        self.param['-o']=self.args[index+1]
+        #self.args=sys.argv[1:]
+        a=sys.argv[1::2]
+        b=sys.argv[2::2]
+        
+        self.param=dict(zip(a,b))
+        #index=self.args.index('-c')
+        #self.param['-c']=self.args[index+1]
+        #index=self.args.index('-d')
+        #self.param['-d']=self.args[index+1]
+        #index=self.args.index('-o')
+        #self.param['-o']=self.args[index+1]
     def getParam(self,ask):
         return self.param.get(ask)
 if __name__=="__main__":
-    try:
-        args=args()
-        config=config()
-        userData=userData()
+   # try:
+        args=Args()
+        config=Config()
+        userData=UserData()
         userData.calculator()
         userData.outTofile()
-    except:
-        print("error")
-    finally:
+   # except Exception as e:
+    #    print(e)
+   # finally:
         sys.exit(0)
+
