@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Index</title>
+        <link rel="stylesheet" href="static/main.css">
+    </head>
+    <body>
+        {% for course in courses %}
+          <p>{{ course.name }} - {{ course.author.username }}</p>
+        {% endfor %}
+    </body>
+    <script src="static/main.js"></script>
+</html>
+
