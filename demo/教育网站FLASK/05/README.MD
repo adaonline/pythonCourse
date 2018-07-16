@@ -21,3 +21,36 @@ macro 通常集中存放在 macros.html 文件中,导入语法：
 ```
 {% from "macros.html" import macro_name %}
 ```
+调用一个 macro 时，要将它放入 {{ }} 中：
+```
+{{ macro_name(arg1, arg2, ...) }}
+```
+下面实现了一个 render_form 的宏用于渲染表单
+```
+<!-- 需要传入2个参数：要渲染的 form 和点击提交请求的 url -->
+{% macro render_form(form, url) %}
+<form method="POST" action="{{ url }}">
+  <!-- 将 csrf_token 渲染在表单开始的位置 -->
+  {{ form.csrf_token }}
+  <!-- 迭代每个表单 field -->
+  {% for field in form %}
+    <!-- 如果是 csrf_token 就不再渲染了 -->
+    {% if field.type == 'CSRFTokenField' %}
+    {{ '' }}
+    <!-- SubmitField 单独特殊处理 -->
+    {% elif field.type == 'SubmitField' %}
+    {{ form.submit(class='btn btn-primary', type='submit') }}
+    <!-- BooleanField 单独特殊处理 -->
+    {% elif field.type == 'BooleanField' %}
+    <div class="checkbox">
+      <label>{{ field() }} {{ field.label.text }}</label>
+    </div>
+    {% else %}
+    <div class="form-group">
+      {{ field.label }} {{ field(class='form-control') }}
+    </div>
+    {% endif %}
+  {% endfor %}
+</form>
+{% endmacro %}
+```

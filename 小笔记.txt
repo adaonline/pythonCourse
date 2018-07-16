@@ -1,0 +1,42 @@
+Flask框架
+
+1 blueprint
+2.app factory
+3.组织配置文件
+4.jinjia页面模板 block，继承页面
+5.from werkzeug.security import generate_password_hash, check_password_hash
+
+
+flask-sqlalchemy/sqlalchemy
+
+	定义一张表： 
+		db=SQLAlchemy();
+			class User(db.Model);
+			db.Column(),db.Integer.String.Datetiome.text.boolean
+				index=True/False(索引用)，nullable=True/False,unique=True/False,default=‘默认值’
+			created_at=db.Column(db.Datetime,default=datetime.datetime.now)
+			updated_at=db.Column(db.Datetime,default=datetime.datetime.now,onupdate=datetime.datetime.now)
+	关系：1对1，1对多，多对多
+		db.Foriegnkey("tablename.pk",ondelete='CASCADE(级联删除)')
+		db.relationship('classname',uselist=False)
+
+		博客--》一个分类
+		博客--》标签1，标签2
+		分类--》标签1，2，3  (post-post_tag-tag用中间表来变成多对多)
+
+jinjia2
+	block
+	extends
+	if
+	for
+	{{}}
+	filters
+	{% set key=name %}
+	with
+	macro
+
+flask-migrate/alembic 数据库版本管理工具
+	flask db init 
+	flask db migrate -m 'add name column'
+	flask db upgrade
+	flask db downgrade
