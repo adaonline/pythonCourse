@@ -3,8 +3,8 @@
 1. 初始的一个基础版本吧
 2. 搭建正式的一个框架(目录下有一些内容讲解)
 3. 增加用户页面
-
-
+4. 数据库升级及表单创建与渲染 
+5. 注册登录功能与表单错误显示实现
 一些初始化操作
 ```
 sudo pip3 install flask flask-sqlalchemy mysqlclient #安装flask数据库连接
