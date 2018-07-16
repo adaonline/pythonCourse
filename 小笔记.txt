@@ -1,28 +1,28 @@
-Flask¿ò¼Ü
+Flaskæ¡†æ¶
 
 1 blueprint
 2.app factory
-3.×éÖ¯ÅäÖÃÎÄ¼ş
-4.jinjiaÒ³ÃæÄ£°å block£¬¼Ì³ĞÒ³Ãæ
+3.ç»„ç»‡é…ç½®æ–‡ä»¶
+4.jinjiaé¡µé¢æ¨¡æ¿ blockï¼Œç»§æ‰¿é¡µé¢
 5.from werkzeug.security import generate_password_hash, check_password_hash
-
+6.flash/get_flashed_message
 
 flask-sqlalchemy/sqlalchemy
 
-	¶¨ÒåÒ»ÕÅ±í£º 
+	å®šä¹‰ä¸€å¼ è¡¨ï¼š 
 		db=SQLAlchemy();
 			class User(db.Model);
 			db.Column(),db.Integer.String.Datetiome.text.boolean
-				index=True/False(Ë÷ÒıÓÃ)£¬nullable=True/False,unique=True/False,default=¡®Ä¬ÈÏÖµ¡¯
+				index=True/False(ç´¢å¼•ç”¨)ï¼Œnullable=True/False,unique=True/False,default=â€˜é»˜è®¤å€¼â€™
 			created_at=db.Column(db.Datetime,default=datetime.datetime.now)
 			updated_at=db.Column(db.Datetime,default=datetime.datetime.now,onupdate=datetime.datetime.now)
-	¹ØÏµ£º1¶Ô1£¬1¶Ô¶à£¬¶à¶Ô¶à
-		db.Foriegnkey("tablename.pk",ondelete='CASCADE(¼¶ÁªÉ¾³ı)')
+	å…³ç³»ï¼š1å¯¹1ï¼Œ1å¯¹å¤šï¼Œå¤šå¯¹å¤š
+		db.Foriegnkey("tablename.pk",ondelete='CASCADE(çº§è”åˆ é™¤)')
 		db.relationship('classname',uselist=False)
 
-		²©¿Í--¡·Ò»¸ö·ÖÀà
-		²©¿Í--¡·±êÇ©1£¬±êÇ©2
-		·ÖÀà--¡·±êÇ©1£¬2£¬3  (post-post_tag-tagÓÃÖĞ¼ä±íÀ´±ä³É¶à¶Ô¶à)
+		åšå®¢--ã€‹ä¸€ä¸ªåˆ†ç±»
+		åšå®¢--ã€‹æ ‡ç­¾1ï¼Œæ ‡ç­¾2
+		åˆ†ç±»--ã€‹æ ‡ç­¾1ï¼Œ2ï¼Œ3  (post-post_tag-tagç”¨ä¸­é—´è¡¨æ¥å˜æˆå¤šå¯¹å¤š)
 
 jinjia2
 	block
@@ -35,8 +35,23 @@ jinjia2
 	with
 	macro
 
-flask-migrate/alembic Êı¾İ¿â°æ±¾¹ÜÀí¹¤¾ß
+flask-migrate/alembic æ•°æ®åº“ç‰ˆæœ¬ç®¡ç†å·¥å…·
 	flask db init 
 	flask db migrate -m 'add name column'
 	flask db upgrade
 	flask db downgrade
+
+flaskâ€”wtf/wtforms(éªŒè¯å™¨)
+	FlaskForm
+	å¸¸ç”¨çš„ä¸€äº›field
+	å¸¸ç”¨çš„éªŒè¯å™¨ length email required
+	è‡ªå®šä¹‰éªŒè¯å™¨ ç”³æ˜å‡½æ•°ç”¨validateå¼€å¤´ï¼Œä¼ å…¥fieldç”¨è‡ªå·±é€»è¾‘éªŒè¯æ•°æ®
+	validate_on_submit
+
+
+flask-login
+	é…ç½®åˆ°app
+	is_authenticatedæ˜¯å¦ç™»é™†å±æ€§
+	current_user
+	login_required è·¯ç”±
+	login_user() logout_user()ç™»é™†ç™»å‡º
